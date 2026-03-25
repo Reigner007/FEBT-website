@@ -21,40 +21,60 @@ if (navbar) {
 
 /* ── 2. HAMBURGER MENU ────────────────────────────────────────
    Toggles the mobile nav open/closed.
-   Also closes it when:
-     a) a nav link is clicked
-     b) the user clicks anywhere outside the menu
+   Uses both 'click' and 'touchend' for maximum mobile support.
+   Also closes when a nav link is clicked or user taps outside.
 -------------------------------------------------------------- */
 const hamburger  = document.getElementById('hamburger');
 const mobileMenu = document.getElementById('mobile-menu');
 
+function openMenu() {
+  mobileMenu.classList.add('open');
+  hamburger.setAttribute('aria-expanded', 'true');
+}
+
+function closeMenu() {
+  mobileMenu.classList.remove('open');
+  hamburger.setAttribute('aria-expanded', 'false');
+}
+
+function toggleMenu(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  mobileMenu.classList.contains('open') ? closeMenu() : openMenu();
+}
+
 if (hamburger && mobileMenu) {
 
-  // Toggle open / closed
-  hamburger.addEventListener('click', (e) => {
-    e.stopPropagation();
-    const isOpen = mobileMenu.classList.toggle('open');
-    hamburger.setAttribute('aria-expanded', isOpen);
-  });
+  // Both click and touchend for full mobile support
+  hamburger.addEventListener('click',    toggleMenu);
+  hamburger.addEventListener('touchend', toggleMenu, { passive: false });
 
-  // Close when a link inside the menu is clicked
+  // Close when a link inside the menu is clicked or tapped
   mobileMenu.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      mobileMenu.classList.remove('open');
-      hamburger.setAttribute('aria-expanded', 'false');
-    });
+    link.addEventListener('click',    closeMenu);
+    link.addEventListener('touchend', closeMenu);
   });
 
-  // Close when clicking anywhere outside the nav
+  // Close when tapping/clicking anywhere outside the nav
   document.addEventListener('click', (e) => {
     if (
-      navbar && !navbar.contains(e.target) &&
+      mobileMenu.classList.contains('open') &&
+      !hamburger.contains(e.target) &&
       !mobileMenu.contains(e.target)
     ) {
-      mobileMenu.classList.remove('open');
-      hamburger.setAttribute('aria-expanded', 'false');
+      closeMenu();
     }
   });
+
+  document.addEventListener('touchend', (e) => {
+    if (
+      mobileMenu.classList.contains('open') &&
+      !hamburger.contains(e.target) &&
+      !mobileMenu.contains(e.target)
+    ) {
+      closeMenu();
+    }
+  }, { passive: true });
 }
 
 
@@ -68,7 +88,6 @@ const currentPage = location.pathname.split('/').pop() || 'index.html';
 document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(link => {
   const href = link.getAttribute('href');
   const hrefPage = href ? href.split('#')[0].split('?')[0] : '';
-
   if (
     hrefPage === currentPage ||
     (currentPage === '' && hrefPage === 'index.html')
@@ -79,10 +98,8 @@ document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(link => {
 
 
 /* ── 4. SCROLL REVEAL ─────────────────────────────────────────
-   Any element with class .reveal starts invisible (opacity 0,
-   translateY 24px — defined in shared.css).
-   IntersectionObserver adds .visible once the element enters
-   the viewport, triggering the CSS transition.
+   Any element with class .reveal starts invisible and animates
+   in when it enters the viewport.
 -------------------------------------------------------------- */
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
