@@ -1,7 +1,10 @@
 /* =============================================================
-   shared.js  —  Grace Community Church
+   shared.js  —  Final Exodus Bride Tabernacle
    Runs on every page. Keep this file clean and well-commented.
    ============================================================= */
+
+document.addEventListener('DOMContentLoaded', () => {
+
 
 /* ── 1. NAVBAR: shadow on scroll ──────────────────────────────
    Adds .scrolled to #navbar once the user scrolls past 20px,
@@ -44,7 +47,10 @@ if (hamburger && mobileMenu) {
 
   // Close when clicking anywhere outside the nav
   document.addEventListener('click', (e) => {
-    if (!navbar.contains(e.target) && !mobileMenu.contains(e.target)) {
+    if (
+      navbar && !navbar.contains(e.target) &&
+      !mobileMenu.contains(e.target)
+    ) {
       mobileMenu.classList.remove('open');
       hamburger.setAttribute('aria-expanded', 'false');
     }
@@ -61,8 +67,6 @@ const currentPage = location.pathname.split('/').pop() || 'index.html';
 
 document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(link => {
   const href = link.getAttribute('href');
-
-  // Strip any hash/query from the href before comparing
   const hrefPage = href ? href.split('#')[0].split('?')[0] : '';
 
   if (
@@ -79,42 +83,30 @@ document.querySelectorAll('.nav-links a, .mobile-menu a').forEach(link => {
    translateY 24px — defined in shared.css).
    IntersectionObserver adds .visible once the element enters
    the viewport, triggering the CSS transition.
-
-   Stagger: if multiple .reveal siblings appear at the same time
-   (e.g. a card grid), each gets a small additional delay so
-   they animate in one after another instead of all at once.
 -------------------------------------------------------------- */
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
       entry.target.classList.add('visible');
-      revealObserver.unobserve(entry.target); // fire once only
+      revealObserver.unobserve(entry.target);
     }
   });
 }, {
-  threshold: 0.10,       // trigger when 10% of element is visible
-  rootMargin: '0px 0px -40px 0px' // slight offset from bottom edge
+  threshold: 0.10,
+  rootMargin: '0px 0px -40px 0px'
 });
 
-// Apply stagger delay to siblings inside grid/flex containers
-document.querySelectorAll('.reveal').forEach((el, index) => {
-
-  // Find siblings that are also .reveal inside the same parent
+document.querySelectorAll('.reveal').forEach((el) => {
   const siblings = Array.from(el.parentElement.querySelectorAll(':scope > .reveal'));
   const siblingIndex = siblings.indexOf(el);
-
-  // Only stagger if there are multiple reveal siblings (e.g. card grids)
   if (siblings.length > 1) {
     el.style.transitionDelay = `${siblingIndex * 80}ms`;
   }
-
   revealObserver.observe(el);
 });
 
 
 /* ── 5. CONTACT FORM SUBMISSION ───────────────────────────────
-   Prevents the default form POST, shows a success state on the
-   button, then resets after 3 seconds.
    Only runs if a #contact-form exists on the current page.
 -------------------------------------------------------------- */
 const contactForm = document.getElementById('contact-form');
@@ -122,18 +114,12 @@ const contactForm = document.getElementById('contact-form');
 if (contactForm) {
   contactForm.addEventListener('submit', (e) => {
     e.preventDefault();
-
     const submitBtn = contactForm.querySelector('button[type="submit"]');
     if (!submitBtn) return;
-
     const originalText = submitBtn.textContent;
-
-    // Success state
     submitBtn.textContent = 'Message Sent ✓';
     submitBtn.style.background = '#4a7c59';
     submitBtn.disabled = true;
-
-    // Reset after 3 seconds
     setTimeout(() => {
       contactForm.reset();
       submitBtn.textContent = originalText;
@@ -145,41 +131,30 @@ if (contactForm) {
 
 
 /* ── 6. SMOOTH SCROLL for anchor links ───────────────────────
-   Handles links like href="#about" and scrolls to the target
-   with an offset to account for the fixed navbar height.
+   Scrolls to target with offset for the fixed navbar.
 -------------------------------------------------------------- */
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', (e) => {
     const targetId = anchor.getAttribute('href');
     if (targetId === '#') return;
-
     const target = document.querySelector(targetId);
     if (!target) return;
-
     e.preventDefault();
-
     const navHeight = navbar ? navbar.offsetHeight : 80;
     const targetTop = target.getBoundingClientRect().top + window.scrollY - navHeight - 16;
-
     window.scrollTo({ top: targetTop, behavior: 'smooth' });
   });
 });
 
 
-/* ── 7. CURRENT YEAR in footer copyright ─────────────────────
-   Automatically keeps the copyright year up to date without
-   needing to edit HTML each January.
--------------------------------------------------------------- */
+/* ── 7. CURRENT YEAR in footer copyright ─────────────────── */
 const yearEl = document.getElementById('copyright-year');
 if (yearEl) {
   yearEl.textContent = new Date().getFullYear();
 }
 
 
-/* ── 8. SERMON FILTER BUTTONS ─────────────────────────────
-   Activates the clicked filter and deactivates the rest.
-   Only runs when .filter-btn elements exist (sermons page).
--------------------------------------------------------------- */
+/* ── 8. SERMON FILTER BUTTONS ─────────────────────────────── */
 document.querySelectorAll('.filter-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
@@ -188,10 +163,7 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
 });
 
 
-/* ── 9. GIVE PAGE — frequency toggle ──────────────────────
-   Switches the active state on the One-Time/Weekly/Monthly
-   toggle. Only runs when .freq-btn elements exist (give page).
--------------------------------------------------------------- */
+/* ── 9. GIVE PAGE — frequency toggle ──────────────────────── */
 document.querySelectorAll('.freq-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.freq-btn').forEach(b => b.classList.remove('active'));
@@ -200,10 +172,7 @@ document.querySelectorAll('.freq-btn').forEach(btn => {
 });
 
 
-/* ── 10. GIVE PAGE — preset amount selection ──────────────
-   Highlights the selected amount button and clears the
-   custom amount input when a preset is chosen.
--------------------------------------------------------------- */
+/* ── 10. GIVE PAGE — preset amount selection ──────────────── */
 document.querySelectorAll('.amount-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('selected'));
@@ -212,3 +181,6 @@ document.querySelectorAll('.amount-btn').forEach(btn => {
     if (customInput) customInput.value = '';
   });
 });
+
+
+}); // end DOMContentLoaded
