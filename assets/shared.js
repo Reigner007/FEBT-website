@@ -20,9 +20,9 @@ if (navbar) {
 
 
 /* ── 2. HAMBURGER MENU ────────────────────────────────────────
-   Toggles the mobile nav open/closed.
-   Uses both 'click' and 'touchend' for maximum mobile support.
-   Also closes when a nav link is clicked or user taps outside.
+   Simplified for maximum mobile reliability.
+   Uses 'click' as primary listener (modern mobile browsers handle taps reliably).
+   Removed conflicting touchend listeners that were causing issues on real devices.
 -------------------------------------------------------------- */
 const hamburger  = document.getElementById('hamburger');
 const mobileMenu = document.getElementById('mobile-menu');
@@ -38,24 +38,24 @@ function closeMenu() {
 }
 
 function toggleMenu(e) {
-  e.preventDefault();
-  e.stopPropagation();
+  if (e) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
   mobileMenu.classList.contains('open') ? closeMenu() : openMenu();
 }
 
 if (hamburger && mobileMenu) {
 
-  // Both click and touchend for full mobile support
-  hamburger.addEventListener('click',    toggleMenu);
-  hamburger.addEventListener('touchend', toggleMenu, { passive: false });
+  // Main listener - click works reliably on mobile
+  hamburger.addEventListener('click', toggleMenu);
 
-  // Close when a link inside the menu is clicked or tapped
+  // Close menu when any link inside is clicked
   mobileMenu.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click',    closeMenu);
-    link.addEventListener('touchend', closeMenu);
+    link.addEventListener('click', closeMenu);
   });
 
-  // Close when tapping/clicking anywhere outside the nav
+  // Close menu when tapping anywhere outside the menu
   document.addEventListener('click', (e) => {
     if (
       mobileMenu.classList.contains('open') &&
@@ -65,16 +65,6 @@ if (hamburger && mobileMenu) {
       closeMenu();
     }
   });
-
-  document.addEventListener('touchend', (e) => {
-    if (
-      mobileMenu.classList.contains('open') &&
-      !hamburger.contains(e.target) &&
-      !mobileMenu.contains(e.target)
-    ) {
-      closeMenu();
-    }
-  }, { passive: true });
 }
 
 
