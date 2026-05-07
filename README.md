@@ -7,7 +7,7 @@ FEBT-website/
 ├── index.html          # Home page
 ├── about.html          # About & Pastor biography
 ├── sermons.html        # Sermons archive with Facebook links
-├── ministries.html     # Church programmes & ministries
+├── programmes.html     # Church programmes & ministries
 ├── events.html         # Events calendar
 ├── contact.html        # Contact form & location
 ├── give.html           # Giving & bank details
