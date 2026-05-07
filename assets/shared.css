@@ -274,6 +274,10 @@ img { max-width: 100%; display: block; }
   line-height: 1.75;
   max-width: 580px;
 }
+.section-header .section-body {
+  text-align: center;
+  margin: 0 auto;
+}
 
 /* ── BUTTONS ─────────────────────────────────────────── */
 .btn {
@@ -322,6 +326,21 @@ footer {
   color: var(--text);
   padding: 70px 40px 40px;
   border-top: 1px solid var(--border);
+}
+.footer-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  border-top: none;
+}
+
+.footer-bottom span,
+.footer-bottom .footer-address {
+  color: var(--text-muted);
 }
 .footer-inner {
   max-width: 1200px;
@@ -383,14 +402,23 @@ footer {
   color: var(--text-muted);
   line-height: 1.7;
 }
-
-.footer-bottom {
+.footer-address {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 0.8rem;
-  color: var(--text-faint);
+  align-items: flex-start;
+  gap: 7px;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.6;
 }
+.footer-address svg {
+  stroke: var(--gold);
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
 
 /* ── FADE IN ─────────────────────────────────────────── */
 .reveal {
@@ -622,6 +650,235 @@ svg          { display: block; overflow: visible; }
   text-transform: uppercase;
   letter-spacing: .05em;
 }
+/* ── About photo grid (home page 2×2) ───────────────────────── */
+.about-photo-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  margin-top: 52px;
+}
+
+.about-photo-tile {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.about-photo-tile:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.45);
+}
+
+.about-photo-tile-img-wrap {
+  width: 100%;
+  aspect-ratio: 4/3;
+  overflow: hidden;
+}
+.about-photo-tile-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.5s ease;
+}
+.about-photo-tile:hover .about-photo-tile-img {
+  transform: scale(1.04);
+}
+
+.about-photo-tile-caption {
+  padding: 20px 24px 22px;
+  border-top: 1px solid var(--border);
+}
+.caption-verse {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--text);
+  line-height: 1.55;
+  margin-bottom: 8px;
+}
+.caption-ref {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .about-photo-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+/* ── Pastor Intro Section (home page) ───────────────────────── */
+.pastor-intro-grid {
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: 72px;
+  align-items: start;
+}
+
+.pastor-intro-visual {
+  position: relative;
+}
+.pastor-intro-img-wrap {
+  border-radius: 4px;
+  overflow: hidden;
+  aspect-ratio: 3/4;
+}
+.pastor-intro-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+  transition: transform 0.5s ease;
+}
+.pastor-intro-visual:hover .pastor-intro-img {
+  transform: scale(1.03);
+}
+
+.pastor-intro-badge {
+  position: absolute;
+  bottom: -20px;
+  left: -20px;
+  background: var(--gold);
+  color: #180F05;
+  padding: 16px 22px;
+  border-radius: 4px;
+  box-shadow: 0 10px 32px rgba(0,0,0,0.55);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: 240px;
+}
+.pib-role {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+.pib-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.pastor-intro-lead {
+  font-size: 1.05rem;
+  color: var(--text);
+  font-weight: 500;
+  line-height: 1.75;
+  margin-bottom: 18px;
+  margin-top: 24px;
+}
+
+.pastor-intro-text {
+  font-size: 0.92rem;
+  color: var(--text);
+  font-weight: 500;
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+
+/* Highlight items */
+.pastor-highlights {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: 30px 0 28px;
+}
+.pastor-highlight-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+.phi-icon {
+  width: 42px;
+  height: 42px;
+  min-width: 42px;
+  background: var(--gold-pale);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.phi-icon svg {
+  stroke: var(--gold);
+}
+.pastor-highlight-item h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 5px;
+  line-height: 1.2;
+}
+.pastor-highlight-item p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+  margin: 0;
+}
+
+/* Pull quote */
+.pastor-intro-quote {
+  background: var(--gold-pale);
+  border-left: 3px solid var(--gold);
+  border-radius: 2px;
+  padding: 22px 26px;
+  margin: 0;
+}
+.pastor-intro-quote p {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--text);
+  line-height: 1.55;
+  margin-bottom: 10px;
+}
+.pastor-intro-quote cite {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-style: normal;
+}
+
+/* Responsive */
+@media (max-width: 960px) {
+  .pastor-intro-grid {
+    grid-template-columns: 1fr;
+    gap: 60px;
+  }
+  .pastor-intro-img-wrap {
+    aspect-ratio: 4/3;
+    max-width: 480px;
+  }
+  .pastor-intro-badge {
+    bottom: -16px;
+    left: 16px;
+  }
+}
+@media (max-width: 480px) {
+  .pastor-intro-badge {
+    padding: 12px 16px;
+    max-width: 200px;
+  }
+  .pib-name { font-size: 0.9rem; }
+  .pastor-intro-lead { font-size: 0.97rem; }
+}
 
 .values-list { list-style: none; margin-top: 26px; display: flex; flex-direction: column; gap: 11px; }
 .values-list li {
@@ -639,6 +896,12 @@ svg          { display: block; overflow: visible; }
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
+}
+.ministry-card-center {
+  grid-column: 1 / -1;
+  max-width: 560px;
+  margin: 0 auto;
+  width: 100%;
 }
 .ministry-card {
   display: flex;
@@ -734,6 +997,93 @@ svg          { display: block; overflow: visible; }
 }
 .speaker-name { font-size: .88rem; font-weight: 500; color: var(--text); }
 .speaker-role { font-size: .74rem; color: var(--text-muted); margin-top: 2px; }
+/* ── Stream & Social Section ─────────────────────────────── */
+.stream-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  margin-top: 52px;
+}
+
+.stream-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.stream-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.45);
+}
+
+.stream-card-top {
+  padding: 36px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+.stream-facebook {
+  background: linear-gradient(135deg, #1a1a2e 0%, #1877F2 100%);
+}
+.stream-youtube {
+  background: linear-gradient(135deg, #1a0a0a 0%, #FF0000 100%);
+}
+.stream-card-top svg {
+  color: white;
+  opacity: 0.95;
+}
+.stream-platform-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: white;
+  letter-spacing: 0.02em;
+}
+
+.stream-card-body {
+  padding: 28px 32px 32px;
+}
+.stream-card-body h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+.stream-card-body p {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 22px;
+}
+
+.stream-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 32px;
+  padding: 18px 24px;
+  background: var(--gold-pale);
+  border: 1px solid var(--border-lit);
+  border-radius: 4px;
+}
+.stream-note svg {
+  stroke: var(--gold);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.stream-note p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .stream-grid { grid-template-columns: 1fr; }
+}
 
 /* ── Events teaser ───────────────────────────────────────── */
 .events-header {
@@ -874,6 +1224,16 @@ svg          { display: block; overflow: visible; }
   color: var(--gold);
   font-style: normal;
 }
+.scripture-intro {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--gold);
+  letter-spacing: 0.04em;
+  line-height: 1.6;
+  margin-bottom: 14px;
+  font-style: normal;
+}
 .stats-row {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -907,13 +1267,19 @@ svg          { display: block; overflow: visible; }
 .about-photo-pair {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0;
+  gap: 28px;
   max-width: 1200px;
   margin: 0 auto;
 }
 .about-photo-item {
   overflow: hidden;
   aspect-ratio: 4/3;
+  border-radius: 4px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.about-photo-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.45);
 }
 .about-photo-img {
   width: 100%;
