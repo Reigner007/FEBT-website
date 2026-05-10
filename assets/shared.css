@@ -1189,6 +1189,137 @@ svg          { display: block; overflow: visible; }
   .hero-title     { font-size: 2.2rem; }
   .ministry-card  { padding: 20px 18px; gap: 14px; }
 }
+@media (max-width: 480px) {
+
+  /* Base */
+  .section           { padding: 60px 18px; }
+  .container         { padding: 0 4px; }
+
+  /* Nav */
+  .nav-inner         { padding: 0 18px; }
+  .nav-brand-name    { font-size: .9rem; }
+  .nav-logo          { width: 32px; height: 32px; }
+
+  /* Buttons */
+  .btn               { padding: 12px 22px; font-size: .7rem; }
+  .about-ctas        { flex-direction: column; }
+  .about-ctas .btn   { width: 100%; text-align: center; justify-content: center; }
+
+  /* Hero */
+  .hero-sub          { font-size: .95rem; padding: 0 8px; }
+
+  /* Give form */
+  .give-form         { padding: 24px 18px; }
+  .freq-toggle       { flex-wrap: wrap; }
+  .freq-btn          { flex: 1; min-width: 80px; }
+  .amount-grid       { grid-template-columns: repeat(3, 1fr); }
+
+  /* Bank details */
+  .bank-entries      { gap: 8px; }
+  .bank-entry        { padding: 10px 12px; }
+  .bank-acct         { font-size: 1rem; letter-spacing: .01em; }
+  .give-section-sub  { font-size: .68rem; }
+  .give-org-name     { font-size: 1rem; }
+
+  /* Ministry features */
+  .ministry-feature  { grid-template-columns: 1fr; }
+  .ministry-feature.reverse { direction: ltr; }
+  .mf-visual         { min-height: 240px; }
+  .mf-body           { padding: 28px 20px; }
+  .mf-body h3        { font-size: 1.5rem; }
+
+  /* Sermon cards */
+  .sermon-card-body  { padding: 18px; }
+  .s-actions         { flex-wrap: wrap; gap: 8px; }
+
+  /* Events — keep column layout, fix box size and font */
+  .event-row         { flex-direction: column; gap: 12px; }
+  .event-date-col {
+    flex-shrink: 0;
+    width: 68px;
+    height: 68px;
+    background: var(--gold);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #111;                 /* dark text on gold */
+    text-align: center;
+    overflow: hidden;
+    padding: 4px;
+    box-sizing: border-box;
+    line-height: 1.05;
+}
+
+.event-date-col .day {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.85rem;
+    font-weight: 700;
+    margin-bottom: 2px;
+}
+
+.event-date-col .dow {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    opacity: 0.9;
+}
+
+/* Handle long texts (4 Jan, 14-15, TBD, etc.) */
+.event-date-col.long .day {
+    font-size: 1.55rem;
+}
+@media (max-width: 480px) {
+    .event-row {
+        flex-direction: row;           /* keep side-by-side */
+        gap: 16px;
+        padding: 18px;
+    }
+    
+    .event-date-col {
+        width: 58px;
+        height: 58px;
+        border-radius: 6px;
+        padding: 3px;
+    }
+    
+    .event-date-col .day {
+        font-size: 1.65rem;
+    }
+    
+    .event-date-col .dow {
+        font-size: 0.62rem;
+    }
+    
+    .event-date-col.long .day {
+        font-size: 1.4rem;
+    }
+}
+
+@media (max-width: 380px) {
+    .event-date-col {
+        width: 54px;
+        height: 54px;
+    }
+    .event-date-col .day {
+        font-size: 1.55rem;
+    }
+}
+  /* Contact */
+  .contact-form-wrap { padding: 24px 16px; }
+  .ci-icon           { width: 40px; height: 40px; }
+
+  /* About stat card */
+  .about-stat        { right: -10px; bottom: -10px; padding: 14px 18px; }
+  .about-stat-num    { font-size: 2.2rem; }
+
+  /* Footer */
+  .footer-socials    { gap: 8px; }
+  .footer-social     { width: 32px; height: 32px; }
+  .footer-bottom     { flex-direction: column; gap: 8px; text-align: center; }
+}
 
 
 /* ════════════════════════════════════════════════════════════
