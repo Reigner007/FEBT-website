@@ -1,0 +1,11 @@
+# Deployment zips
+*.zip
+site-folders.zip
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Error logs
+error_log
+*.log
